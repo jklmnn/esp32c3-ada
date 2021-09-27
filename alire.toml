@@ -1,0 +1,7 @@
+name = "esp32c3"
+description = "Shiny new project"
+version = "0.0.0"
+
+authors = ["Johannes Kliemann"]
+maintainers = ["Johannes Kliemann <jk@jkliemann.de>"]
+maintainers-logins = ["jklmnn"]
