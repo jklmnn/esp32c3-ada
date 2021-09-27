@@ -5,3 +5,6 @@ version = "0.0.0"
 authors = ["Johannes Kliemann"]
 maintainers = ["Johannes Kliemann <jk@jkliemann.de>"]
 maintainers-logins = ["jklmnn"]
+
+[[depends-on]]
+gnat_riscv64_elf = "*"

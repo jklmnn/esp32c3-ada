@@ -1,18 +1,12 @@
 with "config/esp32c3_config.gpr";
 project Esp32c3 is
 
-   for Library_Name use "Esp32c3";
-   for Library_Version use Project'Library_Name & ".so." & Esp32c3_Config.Crate_Version;
+   for Target use "riscv64-elf";
+   for Runtime ("Ada") use "zfp-rv32imac"; --  rv32imc would be correct here, however this is not available
 
    for Source_Dirs use ("src");
    for Object_Dir use "obj";
    for Create_Missing_Dirs use "True";
-   for Library_Dir use "lib";
-
-   type Library_Type_Type is ("relocatable", "static", "static-pic");
-   Library_Type : Library_Type_Type :=
-     external ("ESP32C3_LIBRARY_TYPE", external ("LIBRARY_TYPE", "static"));
-   for Library_Kind use Library_Type;
 
    type Enabled_Kind is ("enabled", "disabled");
    Compile_Checks : Enabled_Kind := External ("ESP32C3_COMPILE_CHECKS", "disabled");
@@ -69,6 +63,10 @@ project Esp32c3 is
          Build_Switches := ("-g",   -- Debug info
                             "-Og"); -- No optimization
    end case;
+
+   package Builder is
+      for Global_Compilation_Switches ("Ada") use ("-march=rv32imc", "-mabi=ilp32");
+   end Builder;
 
    package Compiler is
       for Default_Switches ("Ada") use
