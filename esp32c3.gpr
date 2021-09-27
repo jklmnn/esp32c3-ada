@@ -83,4 +83,33 @@ project Esp32c3 is
       for Switches ("Ada") use ("-Es"); --  Symbolic traceback
    end Binder;
 
+   package Device_Configuration is
+
+      for CPU_Name use "riscv32";
+      for Number_Of_Interrupts use "32";
+
+      for Memories use ("IROM", "DROM", "SRAM", "RTC_RAM");
+
+      for Boot_Memory use "IROM";
+
+      for Main_Stack_Size use "4k";
+
+      for Mem_Kind ("IROM") use "ROM";
+      for Address ("IROM") use "16#42000000#";
+      for Size ("IROM") use "16#400000#";
+
+      for Mem_Kind ("DROM") use "ROM";
+      for Address ("DROM") use "16#3C000000#";
+      for Size ("DROM") use "16#400000#";
+
+      for Mem_Kind ("SRAM") use "RAM";
+      for Address ("SRAM") use "16#3FC80000#";
+      for Size ("SRAM") use "16#50000#";
+
+      for Mem_Kind ("RTC_RAM") use "RAM";
+      for Address ("RTC_RAM") use "16#50000000#";
+      for Size ("RTC_RAM") use "16#2000#";
+
+   end Device_Configuration;
+
 end Esp32c3;
