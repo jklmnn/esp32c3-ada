@@ -12,6 +12,11 @@ mod tests {
     }
 }
 
+#[link(name = "app", kind = "static")]
+extern "C" {
+    fn appinit();
+}
+
 pub fn ada_main() -> ! {
     let peripherals = pac::Peripherals::take().unwrap();
     let rtccntl = RtcCntl::new(peripherals.RTCCNTL);
@@ -26,10 +31,12 @@ pub fn ada_main() -> ! {
     // Initialize the timer with an interval of 1 second
     // TODO: Switch to coherent units.
     timer0.start(10_000_000u64);
-
-    // Write "Hello World" forever
-    loop {
-        writeln!(serial0, "Hello World!").unwrap();
-        block!(timer0.wait()).unwrap();
+    block!(timer0.wait()).unwrap();
+    writeln!(serial0, "Calling Ada...").unwrap();
+    unsafe {
+        appinit();
     }
+    writeln!(serial0, "Done!").unwrap();
+
+    loop {}
 }
