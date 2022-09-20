@@ -10,5 +10,6 @@ maintainers-logins = ["jklmnn"]
 gnat_riscv64_elf = "*"
 
 [[actions]]
-type = "post-fetch"
-command = ["git", "clone", "--recursive", "https://github.com/espressif/esp-idf"]
+type = "pre-build"
+command = ["tools/install_sdk.sh"]
+
