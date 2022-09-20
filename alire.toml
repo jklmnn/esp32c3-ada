@@ -1,5 +1,5 @@
 name = "esp32c3"
-description = "Shiny new project"
+description = "ESP32-C3 SDK"
 version = "0.0.0"
 
 authors = ["Johannes Kliemann"]
