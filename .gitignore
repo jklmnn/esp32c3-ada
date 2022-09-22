@@ -16,3 +16,7 @@ config/
 /target
 **/*.rs.bk
 Cargo.lock
+
+# ESP IDF
+/esp-idf
+/build

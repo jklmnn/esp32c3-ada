@@ -14,5 +14,5 @@ type = "post-fetch"
 command = ["tools/install_sdk.sh"]
 
 [[actions]]
-type = "pre-build"
+type = "post-build"
 command = ["tools/build_sdk.sh"]
