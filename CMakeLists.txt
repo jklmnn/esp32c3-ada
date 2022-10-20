@@ -18,6 +18,10 @@ execute_process(COMMAND bash -c "alr exec -- riscv64-elf-gnatls --RTS=zfp-rv32im
 
 string(STRIP "${gnatls_output}" ada_runtime_dir)
 
+# Add libraries withed by alire
+
+include(${CMAKE_SOURCE_DIR}/app_build/deps.cmake)
+
 # Add the Ada run-time static library
 message(STATUS "Link Ada run-time ${ada_runtime_dir}/libgnat.a")
 add_library(libgnat STATIC IMPORTED GLOBAL)
