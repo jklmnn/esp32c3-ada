@@ -1,4 +1,6 @@
 with "config/esp32c3_config.gpr";
+with "esp_idf.gpr";
+
 project Esp32c3 is
 
    for Target use "riscv64-elf";

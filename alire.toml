@@ -17,6 +17,4 @@ command = ["tools/install_sdk.sh"]
 type = "post-build"
 command = ["tools/build_sdk.sh"]
 [[depends-on]]
-esp32c3_lib = "~0.1.0-dev"
-[[pins]]
-esp32c3_lib = { url='https://github.com/jklmnn/esp32c3-ada-bindings.git' }
+esp_idf = "~0.1.1"
