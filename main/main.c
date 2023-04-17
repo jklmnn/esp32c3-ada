@@ -1,8 +1,8 @@
-extern void appinit(void);
-extern void app__main(void);
+extern void adainit(void);
+extern void _ada_app(void);
 
 void app_main(void)
 {
-    appinit();
-    app__main();
+    adainit();
+    _ada_app();
 }

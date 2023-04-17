@@ -7,7 +7,7 @@ project(app)
 
 # Add the Ada code static library
 add_library(ada_app STATIC IMPORTED GLOBAL)
-set_property(TARGET ada_app PROPERTY IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/app_build/lib/libapp.a")
+set_property(TARGET ada_app PROPERTY IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/app_build/obj/app")
 target_link_libraries(app.elf PUBLIC ada_app)
 
 # Get path of Ada run-time library (libgnat.a)
