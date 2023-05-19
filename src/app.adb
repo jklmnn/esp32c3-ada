@@ -6,14 +6,11 @@ with Interfaces;
 
 procedure App
 is
-   package GPIO renames ESP.Drivers.GPIO;
-
    procedure VTaskDelay (Ticks : Natural) with
       Import,
       Convention => C,
       External_Name => "vTaskDelay";
 
-   use type GPIO.Level;
    use type Interfaces.Unsigned_32;
    use type ESP.Error.ESP_Error;
    Error : ESP.Error.ESP_Error;
