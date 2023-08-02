@@ -17,7 +17,14 @@ basedir=$(pwd)/esp-idf
 
 export IDF_PATH=basedir
 export IDF_EXPORT_QUIET=
+export IDF_ADD_PATHS_EXTRAS=
 source $basedir/export.sh
+
+# remove duplicate symbols provided by esp-idf and the Ada runtime
+for sym in abort free calloc malloc
+do
+    riscv32-esp-elf-objcopy -N $sym app_build/obj/app
+done
 
 idf.py set-target esp32c3
 idf.py build
