@@ -2,6 +2,7 @@ with ESP;
 with ESP.Error;
 with ESP.Drivers.GPIO;
 with ESP.Drivers.LED_Strip;
+with HAL.GPIO;
 with Interfaces;
 
 procedure App
@@ -27,7 +28,9 @@ is
        Flags             => ESP.Drivers.LED_Strip.RMT_Config_Flags'(With_DMA => False));
    Strip : ESP.Drivers.LED_Strip.Strip;
    Led_On : Boolean := False;
+   Led_Pin : ESP.Drivers.GPIO.GPIO_Pin := ESP.Drivers.GPIO.Create (ESP.Drivers.GPIO.GPIO_9, HAL.GPIO.Output);
 begin
+   Led_Pin.Set;
    loop
       Error := ESP.Drivers.LED_Strip.New_RMT_Device (LED_Config'Access, RMT_Config'Access, Strip);
       ESP.Debug ("New_RMT_Device: " & Error'Image);
@@ -36,11 +39,13 @@ begin
          ESP.Debug ("Clear: " & Error'Image);
          loop
             if not Led_On then
+               Led_Pin.Clear;
                Error := ESP.Drivers.LED_Strip.Set_Pixel (Strip, 0, 16, 16, 16);
                ESP.Debug ("Set_Pixel: " & Error'Image);
                Error := ESP.Drivers.LED_Strip.Refresh (Strip);
                ESP.Debug ("Refresh: " & Error'Image);
             else
+               Led_Pin.Set;
                Error := ESP.Drivers.LED_Strip.Clear (Strip);
                ESP.Debug ("Clear: " & Error'Image);
             end if;
