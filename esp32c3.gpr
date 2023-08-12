@@ -4,7 +4,7 @@ with "esp_idf.gpr";
 project Esp32c3 is
 
    for Target use "riscv64-elf";
-   for Runtime ("Ada") use "zfp-rv32imac"; --  rv32imc would be correct here, however this is not available
+   for Runtime ("Ada") use "rts";
 
    for Source_Dirs use ("src");
    for Object_Dir use "app_build/obj";
@@ -81,10 +81,6 @@ project Esp32c3 is
         ("-gnatw.X", -- Disable warnings for No_Exception_Propagation
          "-gnatQ");  -- Don't quit. Generate ALI and tree files even if illegalities
    end Compiler;
-
-   package Linker is
-      for Default_Switches ("Ada") use ("-Wl,-r");
-   end Linker;
 
    package Binder is
       for Switches ("Ada") use ("-Es"); --  Symbolic traceback

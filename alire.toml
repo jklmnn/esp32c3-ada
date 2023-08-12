@@ -7,6 +7,7 @@ maintainers = ["Johannes Kliemann <jk@jkliemann.de>"]
 maintainers-logins = ["jklmnn"]
 
 [[depends-on]]
+# GNAT 11 is mandatory as esp-idf uses GCC 11
 gnat_riscv64_elf = "^11.2.4"
 
 [[actions]]

@@ -8,6 +8,11 @@ lib/
 alire/
 config/
 
+# Ada runtime library
+rts/adalib
+rts/ada_source_path
+rts/obj
+
 
 #Added by cargo
 #
