@@ -1,4 +1,4 @@
-with ESP;
+with Ada.Text_IO;
 with ESP.Error;
 with ESP.Drivers.GPIO;
 with ESP.Drivers.LED_Strip;
@@ -33,21 +33,21 @@ begin
    Led_Pin.Set;
    loop
       Error := ESP.Drivers.LED_Strip.New_RMT_Device (LED_Config'Access, RMT_Config'Access, Strip);
-      ESP.Debug ("New_RMT_Device: " & Error'Image);
+      Ada.Text_IO.Put_Line ("New_RMT_Device: " & Error'Image);
       if Error = ESP.Error.OK then
          Error := ESP.Drivers.LED_Strip.Clear (Strip);
-         ESP.Debug ("Clear: " & Error'Image);
+         Ada.Text_IO.Put_Line ("Clear: " & Error'Image);
          loop
             if not Led_On then
                Led_Pin.Clear;
                Error := ESP.Drivers.LED_Strip.Set_Pixel (Strip, 0, 16, 16, 16);
-               ESP.Debug ("Set_Pixel: " & Error'Image);
+               Ada.Text_IO.Put_Line ("Set_Pixel: " & Error'Image);
                Error := ESP.Drivers.LED_Strip.Refresh (Strip);
-               ESP.Debug ("Refresh: " & Error'Image);
+               Ada.Text_IO.Put_Line ("Refresh: " & Error'Image);
             else
                Led_Pin.Set;
                Error := ESP.Drivers.LED_Strip.Clear (Strip);
-               ESP.Debug ("Clear: " & Error'Image);
+               Ada.Text_IO.Put_Line ("Clear: " & Error'Image);
             end if;
             Led_On := not Led_On;
             VTaskDelay (50);
