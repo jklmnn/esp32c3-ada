@@ -11,10 +11,6 @@ maintainers-logins = ["jklmnn"]
 gnat_riscv64_elf = "^11.2.4"
 
 [[actions]]
-type = "post-fetch"
-command = ["tools/install_sdk.sh"]
-
-[[actions]]
 type = "post-build"
 command = ["tools/build_sdk.sh"]
 [[depends-on]]

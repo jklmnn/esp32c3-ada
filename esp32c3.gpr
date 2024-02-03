@@ -4,7 +4,7 @@ with "esp_idf.gpr";
 project Esp32c3 is
 
    for Target use "riscv64-elf";
-   for Runtime ("Ada") use "rts";
+   for Runtime ("Ada") use esp_idf'Project_Dir & "/rts";
 
    for Source_Dirs use ("src");
    for Object_Dir use "app_build/obj";

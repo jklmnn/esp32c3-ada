@@ -4,7 +4,7 @@ set -e
 set -u
 
 echo 'cmake_minimum_required(VERSION 3.16)' > app_build/deps.cmake
-for lib in $(find alire/cache -name "*.a")
+for lib in $(find alire/cache -name "*.a" | grep -v "esp_idf") $ESP_IDF_ALIRE_PREFIX/rts/adalib/libgnat.a $ESP_IDF_ALIRE_PREFIX/lib/libesp_idf.a
 do
     libname=$(basename $lib | cut -d "." -f 1)
     echo "" >> app_build/deps.cmake
@@ -13,7 +13,7 @@ do
     echo "target_link_libraries(app.elf PUBLIC $libname)" >> app_build/deps.cmake
 done
 
-basedir=$(pwd)/esp-idf
+basedir=$ESP_IDF_ALIRE_PREFIX/esp-idf
 
 export IDF_PATH=basedir
 export IDF_EXPORT_QUIET=

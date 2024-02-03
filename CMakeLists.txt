@@ -9,11 +9,4 @@ project(app)
 add_library(ada_app STATIC IMPORTED GLOBAL)
 set_property(TARGET ada_app PROPERTY IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/app_build/obj/app")
 target_link_libraries(app.elf PUBLIC ada_app)
-
-# Add the Ada run-time static library
-message(STATUS "Link Ada run-time ${ada_runtime_dir}/libgnat.a")
-add_library(libgnat STATIC IMPORTED GLOBAL)
-set_property(TARGET libgnat PROPERTY IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/rts/adalib/libgnat.a")
-target_link_libraries(app.elf PUBLIC libgnat)
-
 #####################################
