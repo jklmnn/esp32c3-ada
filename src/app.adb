@@ -2,6 +2,8 @@ with Ada.Text_IO;
 with ESP.Error;
 with ESP.Drivers.GPIO;
 with ESP.Drivers.LED_Strip;
+with ESP.Drivers.SPI;
+with ESP.Drivers.SPI.Master;
 with HAL.GPIO;
 with Interfaces;
 
@@ -29,8 +31,18 @@ is
    Strip : ESP.Drivers.LED_Strip.Strip;
    Led_On : Boolean := False;
    Led_Pin : ESP.Drivers.GPIO.GPIO_Pin := ESP.Drivers.GPIO.Create (ESP.Drivers.GPIO.GPIO_9, HAL.GPIO.Output);
+   SPI_Dev : ESP.Drivers.SPI.Master.SPI_Port :=
+      ESP.Drivers.SPI.Master.Create (ESP.Drivers.SPI.SPI1_HOST,
+                                     ESP.Drivers.GPIO.GPIO_4,
+                                     ESP.Drivers.GPIO.GPIO_5,
+                                     ESP.Drivers.GPIO.GPIO_6,
+                                     ESP.Drivers.SPI.SPI_Master_Freq_10M,
+                                     1024);
+   SPI_Error : ESP.Error.ESP_Error;
 begin
    Led_Pin.Set;
+   Ada.Text_IO.Put_Line ("Trying to set up SPI");
+   ESP.Drivers.SPI.Master.Initialize (SPI_Dev, SPI_Error);
    loop
       Error := ESP.Drivers.LED_Strip.New_RMT_Device (LED_Config'Access, RMT_Config'Access, Strip);
       Ada.Text_IO.Put_Line ("New_RMT_Device: " & Error'Image);
@@ -49,6 +61,7 @@ begin
                Error := ESP.Drivers.LED_Strip.Clear (Strip);
                Ada.Text_IO.Put_Line ("Clear: " & Error'Image);
             end if;
+               Ada.Text_IO.Put_Line ("SPI Result: " & SPI_Error'Image);
             Led_On := not Led_On;
             VTaskDelay (50);
          end loop;
